@@ -11,8 +11,12 @@ export const calculateDividePosition = (prePosition: number, nextPostion: number
 }
 
 export const calculatePosition = (prePosition?: number, nextPostion?: number): number => {
+  if (!prePosition && !nextPostion) {
+    return RANGE_SLOTS;
+  }
+
   if (!prePosition) {
-    return 0;
+    return calculateDividePosition(0, nextPostion!)
   }
 
   if (!nextPostion) {
@@ -20,6 +24,9 @@ export const calculatePosition = (prePosition?: number, nextPostion?: number): n
   }
 
   return calculateDividePosition(prePosition!, nextPostion!);
+
+  // TODO: if the calculated position equals to 1 or prePosition or nextPosition,
+  // we need to reset the position of the list
 }
 
 export const reorder = (list: Iterable<Person> | ArrayLike<Person>, startIndex: number, endIndex: number) => {
